@@ -1,5 +1,5 @@
 <div class="container" style="border: 1px solid gray; background: white"> 
-<p style="background: silver"><a href="/users/<%= @tweet.user.id %>"> @<%= @tweet.user.username %></a> 
+<p style="background: yellow"><a href="/users/<%= @tweet.user.id %>"> @<%= @tweet.user.username %></a> 
 <time class="timeago" datetime="<%= @tweet.created_at.getutc.iso8601.to_s %>"><%= @tweet.created_at.strftime("%l:%M %p %v") %></time></p>
 <b><%= @tweet.title %></b> <br><br>
 
@@ -7,7 +7,7 @@
 <% @the_original = Tweet.find(@tweet.retweet_id) %>
 
 <div class="container" style="border: 1px solid gray; width: 80%;"> 
-<p style="background: silver"><a href="/users/<%= @the_original.user.id %>"> @<%= @the_original.user.username %></a> 
+<p style="background: yellow"><a href="/users/<%= @the_original.user.id %>"> @<%= @the_original.user.username %></a> 
 <time class="timeago" datetime="<%= @the_original.created_at.getutc.iso8601.to_s %>"><%= @tweet.created_at.strftime("%l:%M %p %v") %></time></p>
 <b><%= @the_original.title %></b> <br> <br>
 
@@ -15,7 +15,6 @@
   <input id="hidden" type="hidden" name="_method" value="PATCH">
     <input type="submit" value="&#10084;  <%= @the_original.likes.count %>" class="btn btn-info">
   </form>
-  <br>
 
 </div>
 <% end %>
