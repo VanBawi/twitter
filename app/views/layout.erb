@@ -18,7 +18,8 @@
     <script src= "https://cdnjs.cloudflare.com/ajax/libs/jquery-timeago/1.5.4/jquery.timeago.min.js"></script>
     
 	</head>
-	<body style="background-image: url(/img/bg.jpg)">
+	<body style="background-image: url(/img/nbg.png); background-repeat: no-repeat; background-size: cover;">
+  
       <% if logged_in? %>
       <nav class="navbar bg-primary">
   <div class="container-fluid">
@@ -103,9 +104,19 @@
 </nav>
 
       <% end %>
-     
+   <div>  
 		<%= yield %>
+</div>
+<br>
+<footer class="page-footer font-small blue">
 
+  <div style="font-size: 25px; height: 60px; line-height: 200%" class="footer-copyright text-center py-3 bg-primary">
+  © 2019 Copyright:
+    The GIANT
+  </div>
+
+
+</footer>
 	</body>
 </html>
 

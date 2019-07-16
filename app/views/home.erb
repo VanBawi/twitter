@@ -1,38 +1,22 @@
 <div class="container"> 
  <div class= "row">
-<div class="col-md-3">
+<div class="col-md-4">
 
     <div class="panel panel-primary">
       <div class="panel-heading">
-        <h3 style="display: inline;"><%= current_user.name %></h3>
+        <h3 style="display: inline;">User: <%= current_user.name %></h3> 
         <h4 style="display: inline;">@<%= current_user.username %></h4>
       </div>
       <div class="panel-body">
          <p><a class="link" href="/users/<%= current_user.id %>/checkfollowing">Following: <%= current_user.followed.count %></a> 
           <a class="link" href="/users/<%= current_user.id %>/checkfollowers">Followers: <%= current_user.followers.count %></a></p>
-         <p>Meows: <%= current_user.tweets.count %> </p>
+         <h4>Tweets: <%= current_user.tweets.count %> </h4>
       </div>
     </div>
 
-
-</div>
-
-   <div class="col-md-6">
-     <div class="tweetarea">
-       <form method="post" action="/tweet">
-         <textarea class="form-control" rows="3" cols="50" name="tweet[title]" placeholder="What's happening?" maxlength="140"></textarea>
-         <span class="buttonfortxtarea"><button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span> Meow </button></span>
-       </form>
-      <%= @error if @error.present? %> 
-     </div>
-   </div>
-
-
-<div class="col-md-3">
-
     <div class="panel panel-primary">
       <div class="panel-heading">
-        <b>Who to follow</b>
+        <h4>Suggested Users</h4>
       </div>
       <div class="panel-body">
       <% if @suggested_users.present? %>
@@ -46,12 +30,18 @@
 
 </div>
 
-
+   <div class="col-md-8">
+     <div class="tweetarea">
+       <form method="post" action="/tweet">
+         <textarea class="form-control" rows="8" cols="80" name="tweet[title]" placeholder="What's happening?" maxlength="140" style="width: 110%; height: 270px; border: 2px solid blue"></textarea>
+         <span class="buttonfortxtarea"><button type="submit" class="btn btn-primary" style="width: 200px; height: 50px; font-size: 25px; margin-left: auto; margin-right: auto"><span class="glyphicon glyphicon-pencil"> </span> Tweet </button></span>
+       </form>
+      <%= @error if @error.present? %> 
+     </div>
+   </div>
 </div>
 
-
  <div class= "row">
-
 
 <div class="col-md-12">
 <% @maintweets.each do |tweet| %>
@@ -80,21 +70,21 @@
 <% end %>
 
 <br>
+<div class="flex-container" style="display: flex;">
+
+<div>
+  <form action="/tweets/<%= tweet.id %>/retweet" method="post">
+  <%# <input id="hidden" type="hidden" name="_method" value="PATCH"> %>
+    <input type='text' name="new_title" placeholder="add comment here" maxlength="140" style="font-size: 18px; height: 32px; width: 440px; border: 2px solid orange;">
+    <input type="submit" value="&#8652;  Retweet" class="btn btn-warning">
+  </form>
+</div>
+<div style="padding-left: 20px">
 <form action="/tweets/<%= tweet.id %>/like" method="post">
   <input id="hidden" type="hidden" name="_method" value="PATCH">
     <input type="submit" value="&#10084;  <%= tweet.likes.count %>" class="btn btn-info">
   </form>
-  <br>
-
-  <button class="btn btn-warning" onclick="myFunction()">Retweet</button>
-  <br>
-<br><br>
-<div id="myDIV" style="display: none;">
-  <form action="/tweets/<%= tweet.id %>/retweet" method="post">
-  <%# <input id="hidden" type="hidden" name="_method" value="PATCH"> %>
-    <textarea type='text' name="new_title" placeholder="add comment here" maxlength="140" rows="4" cols="60">Add Your Comment here...</textarea>
-    <input type="submit" value="&#8652;  Retweet" class="btn btn-warning">
-  </form>
+</div>
 
 </div>
 </div>
