@@ -30,14 +30,14 @@ class ApplicationController < Sinatra::Base
       @following_id = current_user.followed.map(&:id).push(current_user.id)
       @maintweets = Tweet.where(user_id: @following_id).order("created_at DESC")
       @suggested_users = User.where.not(id: @following_id)
-       erb :"static/main"
+       erb :"/home"
     else 
-    erb :"static/index" 
+    erb :"/index" 
     end
   end
   
   get '/main' do
-    erb :"static/main"
+    erb :"/home"
   end
   
   
@@ -51,7 +51,7 @@ class ApplicationController < Sinatra::Base
     else
       @signuperror = user.errors.full_messages.first #the error is from the validation whenever you try to save something in
       #so u cannot use the this same error method in /login because you're not trying to save anything to the database
-      erb :"static/index" 
+      erb :"/index" 
     end
   end 
   
@@ -76,7 +76,7 @@ class ApplicationController < Sinatra::Base
     else
       # If user's login doesn't work, send them back to the login form.
         @error = "Invalid email or password"
-        erb :"static/index"
+        erb :"/index"
     end
   end	
   
