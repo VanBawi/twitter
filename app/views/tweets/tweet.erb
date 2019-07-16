@@ -1,7 +1,26 @@
-<div class="container"> 
+<div class="container" style="border: 1px solid silver"> 
 <p><a href="/users/<%= @tweet.user.id %>"> @<%= @tweet.user.username %></a> 
 <time class="timeago" datetime="<%= @tweet.created_at.getutc.iso8601.to_s %>"><%= @tweet.created_at.strftime("%l:%M %p %v") %></time></p>
-<b><%= @tweet.title %></b> <br>
+<b><%= @tweet.title %></b> <br><br>
+
+<% if @tweet.retweet_id %>
+<% @the_original = Tweet.find(@tweet.retweet_id) %>
+
+<div class="container" style="border: 1px solid silver; width: 80%;"> 
+<p><a href="/users/<%= @the_original.user.id %>"> @<%= @the_original.user.username %></a> 
+<time class="timeago" datetime="<%= @the_original.created_at.getutc.iso8601.to_s %>"><%= @tweet.created_at.strftime("%l:%M %p %v") %></time></p>
+<b><%= @the_original.title %></b> <br> <br>
+
+<form action="/tweets/<%= @the_original.id %>/like" method="post">
+  <input id="hidden" type="hidden" name="_method" value="PATCH">
+    <input type="submit" value="&#10084;  <%= @the_original.likes.count %>" class="btn btn-info">
+  </form>
+  <br>
+
+</div>
+<% end %>
+
+<br><br>
 
 <% if current_user && current_user.id == @tweet.user_id.to_i %>
   <form action="/tweets/<%= @tweet.id %>" method=post>
