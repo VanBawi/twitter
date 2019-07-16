@@ -58,7 +58,14 @@ class ApplicationController < Sinatra::Base
   post '/login' do 
     # apply a authentication method to check if a user has entered a valid email and password
     # if a user has successfully been authenticated, you can assign the current user id to a session
+
+    input = params[:user][:email]
+
+    if input.include?("@")
     user = User.find_by(email: params[:user][:email])  # Check if the user exists
+    else
+      user = User.find_by(username: params[:user][:email])
+    end
   
     if user.try(:authenticate, params[:user][:password]) 
         # Save the user id inside the browser cookie. This is how we keep the user 
@@ -172,7 +179,10 @@ class ApplicationController < Sinatra::Base
   end
 
   patch '/tweets/:id/like' do #like action
+  
     if Like.find_by(user_id: session[:user_id], tweet_id: params[:id])
+      the_like = Like.find_by(user_id: session[:user_id], tweet_id: params[:id])
+      the_like.destroy
       redirect "/tweets/#{params[:id]}"
     else
     @like = Like.new(tweet_id: params[:id], user_id: session[:user_id] )

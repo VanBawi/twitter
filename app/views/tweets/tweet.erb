@@ -28,7 +28,7 @@
 <div id="myDIV" style="display: none;">
   <form action="/tweets/<%= @tweet.id %>/retweet" method="post">
   <%# <input id="hidden" type="hidden" name="_method" value="PATCH"> %>
-    <input type='text' name="new_title" placeholder="add comment here">
+    <textarea type='text' name="new_title" placeholder="add comment here" maxlength="140" rows="4" cols="60">Add Your Comment here...</textarea>
     <input type="submit" value="&#8652;  Retweet" class="btn btn-warning">
   </form>
 </div>
@@ -42,6 +42,11 @@
 
   function myFunction() {
   var x = document.getElementById("myDIV");
+
+  if (x.style.display === "block") {
+    x.style.display = "none";
+  } else {
     x.style.display = "block";
+  }
 }
 </script> 
