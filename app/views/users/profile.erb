@@ -63,25 +63,19 @@
 
 <div class="flex-container" style="display: flex;">
 
-<div style="padding: 5px">
+<div>
+  <form action="/tweets/<%= tweet.id %>/retweet" method="post">
+  <%# <input id="hidden" type="hidden" name="_method" value="PATCH"> %>
+    <input type='text' name="new_title" placeholder="add comment here" maxlength="140" style="font-size: 18px; height: 32px; width: 440px; border: 2px solid orange;">
+    <input type="submit" value="&#8652;  Retweet" class="btn btn-warning">
+  </form>
+</div>
+<div style="padding-left: 20px">
 <form action="/tweets/<%= tweet.id %>/like" method="post">
   <input id="hidden" type="hidden" name="_method" value="PATCH">
     <input type="submit" value="&#10084;  <%= tweet.likes.count %>" class="btn btn-info">
   </form>
   </div>
-  
-<div style="padding: 5px">
-  <button class="btn btn-warning" onclick="myFunction()">Retweet</button>
-  <br>
-<br><br>
-<div id="myDIV" style="display: none;">
-  <form action="/tweets/<%= tweet.id %>/retweet" method="post">
-  <%# <input id="hidden" type="hidden" name="_method" value="PATCH"> %>
-    <textarea type='text' name="new_title" placeholder="add comment here" maxlength="140" rows="4" cols="60">Add Your Comment here...</textarea> <br>
-    <input type="submit" value="&#8652;  Retweet" class="btn btn-warning">
-  </form>
-</div>
-</div>
 </div>
 </div>
 
@@ -102,14 +96,4 @@
 
 <script type="text/javascript">
   $("time.timeago").timeago();
-
-  function myFunction() {
-  var x = document.getElementById("myDIV");
-
-  if (x.style.display === "block") {
-    x.style.display = "none";
-  } else {
-    x.style.display = "block";
-  }
-}
 </script>
